@@ -386,6 +386,42 @@ TextMorph/
 | Den
 has context menu
 ---
-<img width="959" height="437" alt="Screenshot 2026-10-31 085516" src="https://github.com/user-attachments/assets/2babfa2a-ab1e-4988-bf29-59828cdd7bb4" />
-<img width="959" height="440" alt="image" src="https://github.com/user-attachments/assets/6a0109a7-41b1-4e04-853e-e5a73ee4e6df" />
+
+---
+
+## 👀 Take a Look Inside TextMorph
+ 
+<div align="center">
+ 
+### Your workspace, reimagined.
+ 
+Explore the interface of TextMorph, where NLP tools and document intelligence come together.
+ 
+<br>
+ 
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="https://github.com/user-attachments/assets/2babfa2a-ab1e-4988-bf29-59828cdd7bb4" width="100%" alt="TextMorph main interface"/>
+      <br><br>
+      <strong>✨ The NLP Studio</strong>
+      <br>
+      <sub>Summarization, paraphrasing and semantic analysis.</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="https://github.com/user-attachments/assets/6a0109a7-41b1-4e04-853e-e5a73ee4e6df" width="100%" alt="TextMorph document intelligence interface"/>
+      <br><br>
+      <strong>🧠 Document Intelligence</strong>
+      <br>
+      <sub>Explore documents and uncover meaningful insights.</sub>
+    </td>
+  </tr>
+</table>
+ 
+<br>
+ 
+*Less scrolling through documents. More understanding what's inside them.*
+ 
+</div>
+has context menu
 
