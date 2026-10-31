@@ -1,144 +1,380 @@
 # TextMorph
-
-TextMorph is a Gradio NLP studio with a cream grid-paper interface and black, white, and yellow styling. Its original **Summarize**, **Paraphrase**, **Compare meaning**, and **Evaluate** tabs remain available. A fifth **Document Intelligence** workspace adds persistent document collections and source-grounded analysis.
-
+ 
+### An NLP Studio for Understanding, Transforming and Analyzing Documents.
+ 
+TextMorph is a modular NLP application that goes beyond traditional text processing. It combines transformer-based language models, semantic search, hybrid retrieval and evidence-grounded document analysis in a single workspace.
+ 
+What started as a text summarization and paraphrasing tool has evolved into a **Document Intelligence Platform** that can process multiple documents, retrieve relevant evidence, identify potentially conflicting claims and explore relationships between concepts.
+ 
+Built with Python and Gradio, TextMorph brings together language processing and document analysis through an interactive, locally runnable interface.
+ 
+---
+ 
+## Overview
+ 
+TextMorph retains its original NLP capabilities while introducing a dedicated Document Intelligence workspace.
+ 
+| Workspace | Capabilities |
+|---|---|
+| **Summarize** | Abstractive summarization with DistilBART and T5-small |
+| **Paraphrase** | Sentence rewriting with multiple outputs and style options |
+| **Compare Meaning** | Semantic similarity, sentence-level comparison and heatmaps |
+| **Evaluate** | ROUGE-based summary evaluation |
+| **Document Intelligence** | Multi-document ingestion, hybrid retrieval, grounded Q&A, contradiction analysis, knowledge graphs and semantic version comparison |
+ 
 ## Features
-
-- Abstractive summarization with DistilBART and T5-small. Long inputs are split against each tokenizer's context limit and summarized hierarchically without silently truncating the combined summaries.
-- T5 paraphrasing with distinct-result filtering, short-sentence support, and best-effort style prompts.
-- Sentence-BERT semantic similarity and a sentence-level heatmap.
-- ROUGE-1, ROUGE-2, and ROUGE-L precision, recall, and F1 against a user-provided reference.
-- Text statistics and English-oriented readability estimates.
-- TXT, PDF, and DOCX ingestion into named collections. Files are limited to 25 MB each and 20 documents per collection; duplicate files are detected by SHA-256.
-- Configurable limits and chunk settings through environment variables; the default is 450 whitespace-delimited tokens with 80-token overlap and a 20,000-chunk collection cap.
-- SQLite persistence for collections, documents, chunks, embeddings, evidence, analysis runs, and Q&A history.
-- BM25 keyword search, optional Sentence-Transformer dense retrieval, and Reciprocal Rank Fusion. Embeddings are stored in SQLite and searched with a NumPy cosine-similarity adapter; FAISS is not required.
-- Evidence-first document Q&A using extractive passages by default, optional local Ollama (`qwen2.5:3b`), or optional local FLAN-T5. Returned source passages are validated against stored chunk metadata.
-- Optional NLI-based claim verification and cross-document conflict analysis. Numerical discrepancies are reported separately and are not treated as proof of contradiction.
-- Optional spaCy dependency-based knowledge graph extraction, semantic document-version comparison, and TXT/JSON/DOCX result exports.
-- Labeled retrieval evaluation (Recall@5/10, Precision@5/10, MRR, and nDCG); metrics require user-supplied relevant chunk IDs.
-- CPU support. GPU is used when available by PyTorch and Sentence-Transformers.
-
-## Setup
-
-Python 3.11 or 3.12 is recommended for broad compatibility with the ML dependencies.
-
-### Windows PowerShell
-
+ 
+### 01. Core NLP Studio
+ 
+**Text Summarization**
+- Abstractive summarization using DistilBART and T5-small.
+- Token-aware document splitting.
+- Hierarchical summarization for long inputs.
+- Configurable summary generation.
+ 
+**Text Paraphrasing**
+- T5-based paraphrase generation.
+- Multiple distinct outputs with duplicate filtering.
+- Support for short sentences.
+- Best-effort writing styles: Standard, Formal, Simple English, Academic and Creative.
+ 
+**Semantic Similarity**
+- Sentence-BERT embeddings using `all-MiniLM-L6-v2`.
+- Cosine similarity scoring.
+- Sentence-level semantic comparison.
+- Similarity matrix and heatmap visualization.
+ 
+**Summary Evaluation**
+- ROUGE-1, ROUGE-2 and ROUGE-L.
+- Precision, recall and F1 scores.
+- Evaluation against user-provided reference summaries.
+ 
+**Text Analysis**
+- Word, character, sentence and paragraph counts.
+- Average sentence length.
+- Estimated reading time.
+- Flesch Reading Ease and Flesch-Kincaid Grade Level.
+ 
+### 02. Document Workspace
+ 
+Organize and analyze multiple documents through persistent collections.
+ 
+- Upload PDF, DOCX and TXT files.
+- Create and manage named document collections.
+- Detect duplicate files using SHA-256 fingerprints.
+- Extract text and preserve available page and paragraph metadata.
+- Split documents into overlapping chunks.
+- Generate and store document embeddings.
+- View document processing status and collection statistics.
+- Remove documents and rebuild indexes.
+ 
+**Default ingestion limits**
+ 
+| Setting | Default |
+|---|---:|
+| Maximum file size | 25 MB |
+| Documents per collection | 20 |
+| Chunk size | 450 tokens |
+| Chunk overlap | 80 tokens |
+| Maximum chunks per collection | 20,000 |
+ 
+Limits and chunking settings can be configured through environment variables.
+ 
+### 03. Evidence-Grounded Document Q&A
+ 
+Ask questions across an entire document collection and retrieve the passages that support the answer.
+ 
+TextMorph uses a Retrieval-Augmented Generation (RAG) pipeline combining:
+ 
+1. Query embedding generation.
+2. Dense semantic retrieval.
+3. BM25 keyword retrieval.
+4. Reciprocal Rank Fusion (RRF).
+5. Optional Cross-Encoder reranking.
+6. Evidence selection and answer generation.
+7. Source citation validation.
+ 
+**Answer generation options**
+ 
+- Extractive mode: returns relevant passages without generative inference.
+- Ollama: optional local generation using `qwen2.5:3b`.
+- FLAN-T5: optional local generation using `google/flan-t5-base`.
+ 
+Every retrieved passage retains its document name, page number, chunk ID and source text.
+ 
+Citations are assembled and validated using stored metadata rather than trusting the language model to invent source references.
+ 
+### 04. Contradiction and Claim Analysis
+ 
+Use Natural Language Inference (NLI) to examine relationships between claims found across documents.
+ 
+Capabilities include:
+ 
+- Candidate factual sentence extraction.
+- Semantic matching of potentially related claims.
+- Entailment, contradiction and neutral classification.
+- Numerical discrepancy detection.
+- Cross-document conflict reporting.
+- Evidence-backed claim verification.
+ 
+Numerical differences are reported separately rather than automatically classified as contradictions.
+ 
+Claim verification produces one of three outcomes:
+ 
+- **Supported:** relevant document evidence supports the claim.
+- **Contradicted:** relevant evidence conflicts with the claim.
+- **Insufficient evidence:** the collection does not provide enough information to determine either outcome.
+ 
+This is document-grounded verification, not universal fact-checking.
+ 
+### 05. Knowledge Graph Generation
+ 
+Extract entities and relationships from documents to build an evidence-backed knowledge graph.
+ 
+Entity categories include:
+ 
+- People and organizations.
+- Technologies and algorithms.
+- Datasets and evaluation metrics.
+- Research concepts.
+ 
+Graph capabilities:
+ 
+- Entity extraction using spaCy.
+- Dependency-based relationship extraction.
+- Graph construction with NetworkX.
+- Interactive visualization with PyVis.
+- Entity and relationship filtering.
+- Identification of frequently occurring and highly connected entities.
+- Graph export.
+ 
+Relationships retain source evidence and document references. Simple co-occurrence is distinguished from explicitly extracted relationships.
+ 
+### 06. Semantic Document Comparison
+ 
+Compare two document versions to identify changes in meaning rather than relying exclusively on textual differences.
+ 
+The comparison pipeline includes:
+ 
+- Sentence segmentation.
+- Sentence embedding generation.
+- Semantic sentence alignment.
+- Bipartite matching.
+- Numerical claim comparison.
+- NLI-based meaning analysis.
+ 
+Changes are classified as:
+ 
+- Added.
+- Removed.
+- Unchanged.
+- Reworded.
+- Meaning modified.
+- Potentially contradictory.
+ 
+Original and revised passages are displayed alongside their similarity scores and source locations.
+ 
+### 07. Retrieval Evaluation
+ 
+Evaluate retrieval quality using a user-provided set of relevant chunk IDs.
+ 
+Implemented metrics:
+ 
+- Recall@5 and Recall@10.
+- Precision@5 and Precision@10.
+- Mean Reciprocal Rank (MRR).
+- Normalized Discounted Cumulative Gain (nDCG).
+ 
+Evaluation scores are calculated from supplied relevance labels. TextMorph does not ship fabricated benchmark results.
+ 
+### 08. Export and Persistence
+ 
+**Export formats**
+- TXT
+- JSON
+- DOCX
+ 
+CSV export is also available where appropriate.
+ 
+**Persistent storage**
+- SQLite database.
+- SQLAlchemy data models.
+- Stored document collections.
+- Persistent document chunks and embeddings.
+- Evidence records and analysis history.
+- Collection-scoped retrieval.
+ 
+Data is stored locally by default.
+ 
+---
+ 
+## System Architecture
+ 
+TextMorph separates its interface, NLP processing, document ingestion, retrieval and intelligence services into dedicated modules.
+ 
+```text
+                     TEXTMORPH
+                         |
+                 Gradio Interface
+                         |
+          +--------------+--------------+
+          |              |              |
+       Core NLP      Document       Intelligence
+        Studio       Workspace        Engine
+          |              |              |
+     Summarization   Ingestion         RAG
+     Paraphrasing    Chunking          NLI
+     Similarity      Metadata          Claims
+     Evaluation      Embeddings        Knowledge Graph
+                     Storage           Semantic Diff
+                         |
+                 Retrieval Engine
+                         |
+              +----------+----------+
+              |                     |
+          BM25 Search          Dense Search
+              |                     |
+              +----------+----------+
+                         |
+                 Reciprocal Rank
+                    Fusion
+                         |
+                Cross-Encoder
+                  Reranking
+                         |
+                 Evidence Trace
+                         |
+                 SQLite Storage
+```
+ 
+### Project Structure
+ 
+```text
+TextMorph/
+│
+├── app.py
+├── requirements.txt
+├── requirements-optional.txt
+├── requirements-dev.txt
+├── README.md
+│
+├── textmorph/
+│   ├── config.py
+│   ├── documents.py
+│   ├── evaluation.py
+│   ├── exports.py
+│   ├── intelligence.py
+│   ├── knowledge_graph.py
+│   ├── nlp.py
+│   ├── retrieval.py
+│   ├── storage.py
+│   └── ui.py
+│
+├── tests/
+│
+└── data/
+    ├── collections/
+    ├── exports/
+    └── metadata.sqlite
+```
+ 
+---
+ 
+## Technology Stack
+ 
+| Category | Technologies |
+|---|---|
+| Language | Python |
+| Frontend | Gradio |
+| Deep Learning | PyTorch |
+| NLP | Hugging Face Transformers |
+| Sentence Embeddings | Sentence-Transformers |
+| Similarity | scikit-learn, NumPy |
+| Keyword Retrieval | BM25 |
+| Vector Search | NumPy cosine-similarity adapter |
+| Reranking | Cross-Encoder |
+| Natural Language Inference | DeBERTa-based NLI |
+| Knowledge Graph | spaCy, NetworkX, PyVis |
+| Database | SQLite, SQLAlchemy |
+| Document Processing | pypdf, python-docx |
+| Evaluation | ROUGE, custom retrieval metrics |
+| Visualization | Matplotlib |
+ 
+## Model Selection
+ 
+| Task | Model |
+|---|---|
+| Summarization | `sshleifer/distilbart-cnn-12-6` |
+| Summarization | `t5-small` |
+| Paraphrasing | `Vamsi/T5_Paraphrase_Paws` |
+| Semantic Similarity | `sentence-transformers/all-MiniLM-L6-v2` |
+| Dense Document Retrieval | `sentence-transformers/multi-qa-mpnet-base-dot-v1` |
+| Cross-Encoder Reranking | `cross-encoder/ms-marco-MiniLM-L6-v2` |
+| NLI Analysis | `cross-encoder/nli-deberta-base` |
+| Optional Answer Generation | `qwen2.5:3b` via Ollama |
+| Optional Answer Generation | `google/flan-t5-base` |
+ 
+Models are loaded lazily to avoid unnecessary memory consumption. Dense retrieval, reranking and optional generation models do not need to load when the corresponding functionality is unused.
+ 
+---
+ 
+## Getting Started
+ 
+### Requirements
+ 
+- Python 3.11 or 3.12 recommended.
+- Internet access for the initial model downloads.
+- CPU-compatible environment.
+- CUDA-compatible GPU is optional.
+ 
+### Installation
+ 
+**Windows (PowerShell)**
+ 
 ```powershell
 py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
+ 
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
+ 
 python app.py
 ```
-
-If PowerShell blocks activation, use Command Prompt:
-
+ 
+If PowerShell blocks virtual environment activation, use Command Prompt:
+ 
 ```bat
 py -3.11 -m venv .venv
-.venv\Scripts\activate.bat
+.\.venv\Scripts\activate.bat
+ 
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
+ 
 python app.py
 ```
-
-### macOS / Linux
-
+ 
+**macOS / Linux**
+ 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
+ 
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
+ 
 python app.py
 ```
-
-Open <http://127.0.0.1:7860>. The app binds to localhost by default and does not enable Gradio public sharing. To change the bind host/port, set `GRADIO_SERVER_NAME` and `GRADIO_SERVER_PORT`. Hugging Face Spaces are detected through `SPACE_ID` and bind to `0.0.0.0`.
-
-The first use of a model downloads its weights from Hugging Face. Model download errors are shown in the relevant feature; optional models are not loaded during app startup. CPU inference works but can be slow. For a CUDA installation, follow the matching PyTorch installation instructions at <https://pytorch.org/get-started/locally/>.
-
-## Optional features
-
-Install optional visualization and readability dependencies:
-
-```bash
-python -m pip install -r requirements-optional.txt
-python -m spacy download en_core_web_sm
-```
-
-The interactive graph requires both `pyvis` and the spaCy English model. If either is missing, graph extraction or visualization reports the missing optional requirement.
-
-### Local Ollama answering
-
-Install Ollama from <https://ollama.com/>, then run:
-
-```bash
-ollama pull qwen2.5:3b
-ollama serve
-```
-
-Select **Ollama (local)** in **Ask Documents**. Ollama is optional and is never required to launch TextMorph. If the service is unavailable, the app returns retrieved passages in extractive mode and displays the reason.
-
-## Model selection
-
-| Feature | Model |
-|---|---|
-| Summarization | `sshleifer/distilbart-cnn-12-6`, `t5-small` |
-| Paraphrasing | `Vamsi/T5_Paraphrase_Paws` |
-| Similarity and document comparison | `sentence-transformers/all-MiniLM-L6-v2` |
-| Document dense retrieval | `sentence-transformers/multi-qa-mpnet-base-dot-v1` |
-| Candidate reranking | `cross-encoder/ms-marco-MiniLM-L6-v2` |
-| NLI claim/conflict analysis | `cross-encoder/nli-deberta-base` |
-| Optional local answer generation | Ollama `qwen2.5:3b` or `google/flan-t5-base` |
-
-Models load lazily. Dense document indexing and cross-encoder reranking are opt-in. The NLI label mapping is read from the model configuration and checked before classification; for the configured model, the repository config maps contradiction→0, entailment→1, neutral→2.
-
-## Data, privacy, and limits
-
-- By default, uploaded files, the SQLite database, and exports are stored under the ignored `data/` directory. Set `TEXTMORPH_DATA_DIR` to use another local directory.
-- `TEXTMORPH_MAX_FILE_SIZE_MB`, `TEXTMORPH_MAX_DOCUMENTS_PER_COLLECTION`, `TEXTMORPH_MAX_CHUNKS_PER_COLLECTION`, `TEXTMORPH_CHUNK_SIZE`, `TEXTMORPH_CHUNK_OVERLAP`, and `TEXTMORPH_RETRIEVAL_MODEL` configure ingestion limits and retrieval.
-- Collections are isolated during retrieval. Removing a document or collection removes its stored file and dependent database records.
-- SQLite tables are initialized with SQLAlchemy `create_all`; `PRAGMA user_version` tracks a small schema migration. There is no general migration framework yet. Back up `data/metadata.sqlite` and collection files before upgrading.
-- Uploaded documents are treated as untrusted evidence. They are never executed. The local answer prompt tells the model not to follow instructions in source text, and citations are assembled from database records rather than generated by the model.
-- Similarity is not proof of factual equivalence. NLI predictions and graph relations are model/parse outputs that require human review. Claim verification only checks support in the selected documents; it is not universal fact-checking.
-- Conflict analysis is limited to 500 chunks per run and version comparison to 1,000 sentences per document.
-- Scanned PDFs require OCR. OCR is not included.
-- T5 style prompts are best-effort and may not reliably follow every requested style.
-- Embedding search uses a persistent NumPy exact-search fallback rather than FAISS. BM25 is implemented locally. Large collections may need more memory and inference time, especially on CPU.
-- RAG evaluation utilities require a labeled relevance set; the project does not ship benchmark labels or claim benchmark results. Ragas, SNLI/MultiNLI evaluation, and comprehensive scientific extraction benchmarks are not bundled.
-
-## Tests
-
-Install development dependencies and run the offline unit tests:
-
-```bash
-python -m pip install -r requirements-dev.txt
-python -m pytest -q
-```
-
-Tests use local fixtures and mocked models; they do not download model weights. To exercise neural inference, first launch the app and use each model-dependent feature with network access for the initial model download.
-
-## Project layout
-
+ 
+Open the application:
+ 
 ```text
-app.py
-textmorph/
-  config.py             Settings and model registry
-  documents.py          Secure TXT/PDF/DOCX extraction and chunking
-  evaluation.py         Labeled retrieval and citation metrics
-  exports.py            TXT, JSON, CSV, and DOCX exports
-  intelligence.py       Grounded Q&A, NLI, claims, and semantic diffs
-  knowledge_graph.py    Evidence-backed graph extraction/visualization
-  nlp.py                Summarization, paraphrasing, metrics, and ROUGE
-  retrieval.py          BM25, dense vectors, RRF, and optional reranking
-  storage.py            SQLite persistence and collection isolation
-  ui.py                 Gradio interface and original hand-drawn styling
-tests/
-requirements.txt
-requirements-optional.txt
-requirements-dev.txt
+http://127.0.0.1:7860
 ```
+ 
+TextMorph binds to localhost by default and does not enable Gradio public sharing.
+ 
+The first use of a model downloads its weights from Hugging Face. CPU inference is supported, although some operations may take longer.
+ 
+For CUDA-enabled PyTorch in
+has context menu
 
-## Deploy
-
-Create a Hugging Face Space, choose **Gradio**, and include `app.py`, the `textmorph/` package, `requirements.txt`, and this README. Spaces bind to `0.0.0.0` automatically. Do not enable public sharing for collections containing private documents.
