@@ -1,13 +1,3 @@
----
-title: TextMorph
-emoji: 🪄
-colorFrom: yellow
-colorTo: gray
-sdk: gradio
-app_file: app.py
-pinned: false
----
-
 # TextMorph
 
 TextMorph is a Gradio NLP studio with a cream grid-paper interface and black, white, and yellow styling. Its original **Summarize**, **Paraphrase**, **Compare meaning**, and **Evaluate** tabs remain available. A fifth **Document Intelligence** workspace adds persistent document collections and source-grounded analysis.
