@@ -1,38 +1,90 @@
-# TextMorph
+<div align="center">
  
-### An NLP Studio for Understanding, Transforming and Analyzing Documents.
+# ✨ TextMorph
  
-TextMorph is a modular NLP application that goes beyond traditional text processing. It combines transformer-based language models, semantic search, hybrid retrieval and evidence-grounded document analysis in a single workspace.
+### Words, reimagined.
  
-What started as a text summarization and paraphrasing tool has evolved into a **Document Intelligence Platform** that can process multiple documents, retrieve relevant evidence, identify potentially conflicting claims and explore relationships between concepts.
+**An NLP Studio & Document Intelligence Platform**
  
-Built with Python and Gradio, TextMorph brings together language processing and document analysis through an interactive, locally runnable interface.
+Transform text. Discover meaning. Connect information. Understand documents.
+ 
+<br>
+ 
+![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Gradio](https://img.shields.io/badge/Gradio-UI-FF7C00?style=for-the-badge&logo=gradio&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-Deep_Learning-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+![NLP](https://img.shields.io/badge/Domain-NLP%20%7C%20RAG-8A63D2?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+ 
+<br>
+ 
+**From a single sentence to an entire library of documents.**
+ 
+</div>
  
 ---
  
-## Overview
+## 🪄 What is TextMorph?
  
-TextMorph retains its original NLP capabilities while introducing a dedicated Document Intelligence workspace.
+Ever wished you could summarize a massive document, rewrite an awkward paragraph, compare two pieces of text, and actually *ask questions* about your documents?
  
-| Workspace | Capabilities |
-|---|---|
-| **Summarize** | Abstractive summarization with DistilBART and T5-small |
-| **Paraphrase** | Sentence rewriting with multiple outputs and style options |
-| **Compare Meaning** | Semantic similarity, sentence-level comparison and heatmaps |
-| **Evaluate** | ROUGE-based summary evaluation |
-| **Document Intelligence** | Multi-document ingestion, hybrid retrieval, grounded Q&A, contradiction analysis, knowledge graphs and semantic version comparison |
+That's the idea behind **TextMorph**.
  
-## Features
+TextMorph started as an NLP toolkit for summarization, paraphrasing and semantic similarity. It has evolved into a modular **Document Intelligence Platform** that combines transformer-based language models, semantic search, hybrid retrieval and evidence-grounded analysis.
  
-### 01. Core NLP Studio
+Instead of just processing words, TextMorph helps you understand what those words actually mean.
  
-**Text Summarization**
+<details>
+<summary>💡 The idea behind the project</summary>
+ 
+Traditional NLP tools usually solve one problem at a time. TextMorph brings multiple language-processing and document-analysis capabilities into one workspace.
+ 
+The goal is to make document exploration more interactive, explainable and useful, while keeping the processing local by default.
+ 
+</details>
+ 
+---
+ 
+## 🎨 Explore TextMorph
+ 
+<div align="center">
+ 
+| ✍️ Summarize | 🔄 Paraphrase |
+|:---:|:---:|
+| Turn lengthy text into concise summaries. | Rewrite sentences without losing their meaning. |
+| 🧠 Compare Meaning | 📊 Evaluate |
+| Measure semantic similarity between texts. | Evaluate generated summaries using ROUGE. |
+ 
+</div>
+ 
+### 🧩 The Document Intelligence Workspace
+ 
+The real fun begins when multiple documents enter the picture.
+ 
+| Feature | What it does |
+|:---|:---|
+| 📚 **Document Workspace** | Upload, organize and manage document collections. |
+| 💬 **Ask Documents** | Ask questions and receive answers grounded in retrieved passages. |
+| ⚖️ **Find Conflicts** | Identify potentially contradictory claims across documents. |
+| 🕸️ **Knowledge Graph** | Discover entities and relationships between concepts. |
+| 🔍 **Compare Versions** | Find changes in meaning between document versions. |
+| 🎯 **Verify Claims** | Check whether a claim is supported by your documents. |
+ 
+---
+ 
+## 🚀 Features
+ 
+### ✍️ 01. Core NLP Studio
+ 
+Your everyday text-processing toolkit, powered by transformer models.
+ 
+**Summarization**
 - Abstractive summarization using DistilBART and T5-small.
 - Token-aware document splitting.
 - Hierarchical summarization for long inputs.
 - Configurable summary generation.
  
-**Text Paraphrasing**
+**Paraphrasing**
 - T5-based paraphrase generation.
 - Multiple distinct outputs with duplicate filtering.
 - Support for short sentences.
@@ -42,73 +94,110 @@ TextMorph retains its original NLP capabilities while introducing a dedicated Do
 - Sentence-BERT embeddings using `all-MiniLM-L6-v2`.
 - Cosine similarity scoring.
 - Sentence-level semantic comparison.
-- Similarity matrix and heatmap visualization.
+- Similarity matrices and heatmap visualization.
  
-**Summary Evaluation**
+**Evaluation**
 - ROUGE-1, ROUGE-2 and ROUGE-L.
 - Precision, recall and F1 scores.
 - Evaluation against user-provided reference summaries.
  
-**Text Analysis**
+**Text Analytics**
 - Word, character, sentence and paragraph counts.
 - Average sentence length.
 - Estimated reading time.
-- Flesch Reading Ease and Flesch-Kincaid Grade Level.
+- Flesch Reading Ease.
+- Flesch-Kincaid Grade Level.
  
-### 02. Document Workspace
+---
  
-Organize and analyze multiple documents through persistent collections.
+### 📚 02. Document Workspace
+ 
+**Your documents. One organized workspace.**
  
 - Upload PDF, DOCX and TXT files.
 - Create and manage named document collections.
 - Detect duplicate files using SHA-256 fingerprints.
-- Extract text and preserve available page and paragraph metadata.
+- Extract text while preserving available page and paragraph metadata.
 - Split documents into overlapping chunks.
 - Generate and store document embeddings.
 - View document processing status and collection statistics.
 - Remove documents and rebuild indexes.
  
-**Default ingestion limits**
+<details>
+<summary>⚙️ Default ingestion configuration</summary>
  
 | Setting | Default |
-|---|---:|
+|:---|---:|
 | Maximum file size | 25 MB |
 | Documents per collection | 20 |
 | Chunk size | 450 tokens |
 | Chunk overlap | 80 tokens |
 | Maximum chunks per collection | 20,000 |
  
-Limits and chunking settings can be configured through environment variables.
+All limits and chunking settings can be configured through environment variables.
  
-### 03. Evidence-Grounded Document Q&A
+</details>
  
-Ask questions across an entire document collection and retrieve the passages that support the answer.
+---
  
-TextMorph uses a Retrieval-Augmented Generation (RAG) pipeline combining:
+### 💬 03. Ask Documents
  
-1. Query embedding generation.
-2. Dense semantic retrieval.
-3. BM25 keyword retrieval.
-4. Reciprocal Rank Fusion (RRF).
-5. Optional Cross-Encoder reranking.
-6. Evidence selection and answer generation.
-7. Source citation validation.
+**Because reading every single page is not always the best use of a human lifespan.**
+ 
+Ask questions across an entire document collection and retrieve passages that support the answer.
+ 
+TextMorph uses a Retrieval-Augmented Generation (RAG) pipeline:
+ 
+```text
+        Your Question
+              |
+              v
+       Query Embedding
+              |
+       +------+------+
+       |             |
+       v             v
+   BM25 Search   Dense Search
+       |             |
+       +------+------+
+              |
+              v
+       Reciprocal Rank
+          Fusion
+              |
+              v
+       Cross-Encoder
+         Reranking
+              |
+              v
+       Evidence Selection
+              |
+              v
+        Answer Generation
+              |
+              v
+       Verified Citations
+```
  
 **Answer generation options**
  
-- Extractive mode: returns relevant passages without generative inference.
-- Ollama: optional local generation using `qwen2.5:3b`.
-- FLAN-T5: optional local generation using `google/flan-t5-base`.
+- 📄 Extractive mode: returns relevant passages without generative inference.
+- 🦙 Ollama: optional local generation using `qwen2.5:3b`.
+- 🤖 FLAN-T5: optional generation using `google/flan-t5-base`.
  
 Every retrieved passage retains its document name, page number, chunk ID and source text.
  
-Citations are assembled and validated using stored metadata rather than trusting the language model to invent source references.
+Citations are assembled and validated using stored metadata rather than trusting a language model to invent references. A surprisingly important distinction.
  
-### 04. Contradiction and Claim Analysis
+---
  
-Use Natural Language Inference (NLI) to examine relationships between claims found across documents.
+### ⚖️ 04. Find Conflicts & Verify Claims
  
-Capabilities include:
+**When two documents disagree, TextMorph helps you investigate.**
+ 
+Using Natural Language Inference (NLI), TextMorph examines relationships between claims found across documents.
+ 
+Capabilities:
  
 - Candidate factual sentence extraction.
 - Semantic matching of potentially related claims.
@@ -117,45 +206,48 @@ Capabilities include:
 - Cross-document conflict reporting.
 - Evidence-backed claim verification.
  
+Claims are classified as:
+ 
+| Classification | Meaning |
+|:---|:---|
+| 🟢 Supported | Relevant document evidence supports the claim. |
+| 🔴 Contradicted | Relevant evidence conflicts with the claim. |
+| 🟡 Insufficient Evidence | The collection does not provide enough information. |
+ 
 Numerical differences are reported separately rather than automatically classified as contradictions.
  
-Claim verification produces one of three outcomes:
+*Note: This is document-grounded verification, not universal fact-checking.*
  
-- **Supported:** relevant document evidence supports the claim.
-- **Contradicted:** relevant evidence conflicts with the claim.
-- **Insufficient evidence:** the collection does not provide enough information to determine either outcome.
+---
  
-This is document-grounded verification, not universal fact-checking.
+### 🕸️ 05. Knowledge Graph
  
-### 05. Knowledge Graph Generation
+**Turn disconnected documents into connected information.**
  
-Extract entities and relationships from documents to build an evidence-backed knowledge graph.
+TextMorph extracts entities and relationships to build an evidence-backed knowledge graph.
  
-Entity categories include:
- 
-- People and organizations.
-- Technologies and algorithms.
-- Datasets and evaluation metrics.
-- Research concepts.
- 
-Graph capabilities:
- 
+Features:
 - Entity extraction using spaCy.
 - Dependency-based relationship extraction.
-- Graph construction with NetworkX.
-- Interactive visualization with PyVis.
+- Graph construction using NetworkX.
+- Interactive visualization using PyVis.
 - Entity and relationship filtering.
 - Identification of frequently occurring and highly connected entities.
 - Graph export.
  
+Supported entity categories include people, organizations, technologies, algorithms, datasets, metrics and research concepts.
+ 
 Relationships retain source evidence and document references. Simple co-occurrence is distinguished from explicitly extracted relationships.
  
-### 06. Semantic Document Comparison
+---
  
-Compare two document versions to identify changes in meaning rather than relying exclusively on textual differences.
+### 🔍 06. Semantic Document Comparison
  
-The comparison pipeline includes:
+**Not every important change is visible in a traditional diff.**
  
+Compare two document versions to identify changes in meaning, not just differences in characters.
+ 
+The pipeline includes:
 - Sentence segmentation.
 - Sentence embedding generation.
 - Semantic sentence alignment.
@@ -165,89 +257,89 @@ The comparison pipeline includes:
  
 Changes are classified as:
  
-- Added.
-- Removed.
-- Unchanged.
-- Reworded.
-- Meaning modified.
-- Potentially contradictory.
+| Change | Description |
+|:---|:---|
+| 🟢 Unchanged | Meaning remains consistent. |
+| 🔵 Reworded | Wording changes, meaning stays similar. |
+| 🟣 Added | New information appears. |
+| 🔴 Removed | Previous information disappears. |
+| 🟠 Meaning Modified | The meaning has changed. |
+| ⚠️ Potentially Contradictory | The revised content may conflict with the original. |
  
-Original and revised passages are displayed alongside their similarity scores and source locations.
- 
-### 07. Retrieval Evaluation
- 
-Evaluate retrieval quality using a user-provided set of relevant chunk IDs.
- 
-Implemented metrics:
- 
-- Recall@5 and Recall@10.
-- Precision@5 and Precision@10.
-- Mean Reciprocal Rank (MRR).
-- Normalized Discounted Cumulative Gain (nDCG).
- 
-Evaluation scores are calculated from supplied relevance labels. TextMorph does not ship fabricated benchmark results.
- 
-### 08. Export and Persistence
- 
-**Export formats**
-- TXT
-- JSON
-- DOCX
- 
-CSV export is also available where appropriate.
- 
-**Persistent storage**
-- SQLite database.
-- SQLAlchemy data models.
-- Stored document collections.
-- Persistent document chunks and embeddings.
-- Evidence records and analysis history.
-- Collection-scoped retrieval.
- 
-Data is stored locally by default.
+Original and revised passages are displayed alongside similarity scores and source locations.
  
 ---
  
-## System Architecture
+### 📈 07. Retrieval Evaluation
  
-TextMorph separates its interface, NLP processing, document ingestion, retrieval and intelligence services into dedicated modules.
+Because an intelligent system should be evaluated, not simply declared intelligent.
  
-```text
-                     TEXTMORPH
-                         |
-                 Gradio Interface
-                         |
-          +--------------+--------------+
-          |              |              |
-       Core NLP      Document       Intelligence
-        Studio       Workspace        Engine
-          |              |              |
-     Summarization   Ingestion         RAG
-     Paraphrasing    Chunking          NLI
-     Similarity      Metadata          Claims
-     Evaluation      Embeddings        Knowledge Graph
-                     Storage           Semantic Diff
-                         |
-                 Retrieval Engine
-                         |
-              +----------+----------+
-              |                     |
-          BM25 Search          Dense Search
-              |                     |
-              +----------+----------+
-                         |
-                 Reciprocal Rank
-                    Fusion
-                         |
-                Cross-Encoder
-                  Reranking
-                         |
-                 Evidence Trace
-                         |
-                 SQLite Storage
+TextMorph evaluates retrieval quality using user-provided relevant chunk IDs.
+ 
+| Metric | Purpose |
+|:---|:---|
+| Recall@5 / Recall@10 | Measures relevant chunks retrieved. |
+| Precision@5 / Precision@10 | Measures relevance among retrieved chunks. |
+| MRR | Measures the position of the first relevant result. |
+| nDCG | Measures ranking quality. |
+ 
+Scores are calculated using supplied relevance labels. No imaginary benchmark scores are included.
+ 
+---
+ 
+### 📦 08. Export & Persistence
+ 
+- Export results in TXT, JSON and DOCX.
+- CSV export where appropriate.
+- Persistent SQLite storage.
+- SQLAlchemy data models.
+- Stored document collections, chunks and embeddings.
+- Evidence records and analysis history.
+- Collection-scoped retrieval.
+ 
+**Local-first by default.** Your documents stay on your machine unless you deliberately deploy or expose the application elsewhere.
+ 
+---
+ 
+## 🏗️ Under the Hood
+ 
+TextMorph follows a modular architecture that separates the interface, NLP processing, document ingestion, retrieval and intelligence services.
+ 
+```mermaid
+flowchart TD
+    A["🎨 Gradio Interface"] --> B["Core NLP Studio"]
+    A --> C["Document Workspace"]
+    A --> D["Intelligence Engine"]
+ 
+    B --> E["Summarization"]
+    B --> F["Paraphrasing"]
+    B --> G["Semantic Similarity"]
+    B --> H["Evaluation"]
+ 
+    C --> I["Document Ingestion"]
+    I --> J["Chunking & Metadata"]
+    J --> K["Embedding Generation"]
+ 
+    D --> L["RAG & Q&A"]
+    D --> M["NLI & Claim Analysis"]
+    D --> N["Knowledge Graph"]
+    D --> O["Semantic Diff"]
+ 
+    K --> P["Hybrid Retrieval"]
+    P --> Q["BM25 + Dense Search"]
+    Q --> R["Reciprocal Rank Fusion"]
+    R --> S["Cross-Encoder Reranking"]
+    S --> T["Evidence Trace"]
+ 
+    L --> T
+    M --> T
+    N --> T
+    O --> T
+ 
+    T --> U[("SQLite Database")]
 ```
  
-### Project Structure
+### 🗂️ Project Structure
  
 ```text
 TextMorph/
@@ -280,103 +372,19 @@ TextMorph/
  
 ---
  
-## Technology Stack
+## 🧠 Models & Technologies
  
-| Category | Technologies |
-|---|---|
-| Language | Python |
-| Frontend | Gradio |
-| Deep Learning | PyTorch |
-| NLP | Hugging Face Transformers |
-| Sentence Embeddings | Sentence-Transformers |
-| Similarity | scikit-learn, NumPy |
-| Keyword Retrieval | BM25 |
-| Vector Search | NumPy cosine-similarity adapter |
-| Reranking | Cross-Encoder |
-| Natural Language Inference | DeBERTa-based NLI |
-| Knowledge Graph | spaCy, NetworkX, PyVis |
-| Database | SQLite, SQLAlchemy |
-| Document Processing | pypdf, python-docx |
-| Evaluation | ROUGE, custom retrieval metrics |
-| Visualization | Matplotlib |
- 
-## Model Selection
+<details>
+<summary>🤖 Pretrained models</summary>
  
 | Task | Model |
-|---|---|
+|:---|:---|
 | Summarization | `sshleifer/distilbart-cnn-12-6` |
 | Summarization | `t5-small` |
 | Paraphrasing | `Vamsi/T5_Paraphrase_Paws` |
 | Semantic Similarity | `sentence-transformers/all-MiniLM-L6-v2` |
-| Dense Document Retrieval | `sentence-transformers/multi-qa-mpnet-base-dot-v1` |
-| Cross-Encoder Reranking | `cross-encoder/ms-marco-MiniLM-L6-v2` |
-| NLI Analysis | `cross-encoder/nli-deberta-base` |
-| Optional Answer Generation | `qwen2.5:3b` via Ollama |
-| Optional Answer Generation | `google/flan-t5-base` |
- 
-Models are loaded lazily to avoid unnecessary memory consumption. Dense retrieval, reranking and optional generation models do not need to load when the corresponding functionality is unused.
- 
----
- 
-## Getting Started
- 
-### Requirements
- 
-- Python 3.11 or 3.12 recommended.
-- Internet access for the initial model downloads.
-- CPU-compatible environment.
-- CUDA-compatible GPU is optional.
- 
-### Installation
- 
-**Windows (PowerShell)**
- 
-```powershell
-py -3.11 -m venv .venv
-.\.venv\Scripts\Activate.ps1
- 
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
- 
-python app.py
-```
- 
-If PowerShell blocks virtual environment activation, use Command Prompt:
- 
-```bat
-py -3.11 -m venv .venv
-.\.venv\Scripts\activate.bat
- 
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
- 
-python app.py
-```
- 
-**macOS / Linux**
- 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
- 
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
- 
-python app.py
-```
- 
-Open the application:
- 
-```text
-http://127.0.0.1:7860
-```
- 
-TextMorph binds to localhost by default and does not enable Gradio public sharing.
- 
-The first use of a model downloads its weights from Hugging Face. CPU inference is supported, although some operations may take longer.
- 
-For CUDA-enabled PyTorch in
+| Den
 has context menu
-
 <img width="959" height="437" alt="Screenshot 2026-10-31 085516" src="https://github.com/user-attachments/assets/2babfa2a-ab1e-4988-bf29-59828cdd7bb4" />
-<img width="905" height="438" alt="Screenshot 2026-10-31 090838" src="https://github.com/user-attachments/assets/2e402ea7-274e-46b3-8e10-79349382860e" />
+<img width="959" height="440" alt="image" src="https://github.com/user-attachments/assets/6a0109a7-41b1-4e04-853e-e5a73ee4e6df" />
+
