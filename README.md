@@ -385,7 +385,7 @@ TextMorph/
 | Semantic Similarity | `sentence-transformers/all-MiniLM-L6-v2` |
 | Den
 has context menu
-
+---
 <img width="959" height="437" alt="Screenshot 2026-10-31 085516" src="https://github.com/user-attachments/assets/2babfa2a-ab1e-4988-bf29-59828cdd7bb4" />
 <img width="959" height="440" alt="image" src="https://github.com/user-attachments/assets/6a0109a7-41b1-4e04-853e-e5a73ee4e6df" />
 
