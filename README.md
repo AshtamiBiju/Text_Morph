@@ -418,6 +418,7 @@ Models are loaded lazily to reduce unnecessary memory consumption.
 </details>
  
  
+ 
 ---
  
 ## 👀 Take a Look Inside TextMorph
@@ -440,7 +441,7 @@ Explore the interface where NLP tools and document intelligence come together.
       <sub>Summarization, paraphrasing and semantic analysis.</sub>
     </td>
     <td align="center" width="50%">
-      <img src="https://github.com/user-attachments/assets/6a0109a7-41b1-4e04-853e-e5a73ee4e6df" width="100%" alt="TextMorph Document Intelligence"/>
+      <img src="https://github.com/user-attachments/assets/a89a0f9b-bd91-4a2b-9ec8-44ffdf376aa9" width="100%" alt="TextMorph Document Intelligence"/>
       <br><br>
       <strong>🧠 Document Intelligence</strong>
       <br>
@@ -450,16 +451,6 @@ Explore the interface where NLP tools and document intelligence come together.
 </table>
  
 <br>
- 
-### 📊 More Than Just Text Processing
- 
-<img src="https://github.com/user-attachments/assets/a89a0f9b-bd91-4a2b-9ec8-44ffdf376aa9" width="90%" alt="TextMorph additional interface preview"/>
- 
-<br>
- 
-<sub>More ways to explore, analyze and understand your documents.</sub>
- 
-<br><br>
  
 *Less scrolling through documents. More understanding what's inside them.*
  
