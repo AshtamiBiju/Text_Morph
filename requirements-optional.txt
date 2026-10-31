@@ -1,0 +1,5 @@
+-r requirements.txt
+matplotlib>=3.8
+textstat>=0.7
+spacy>=3.7
+pyvis>=0.3

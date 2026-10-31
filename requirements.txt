@@ -1,0 +1,13 @@
+gradio>=5.0,<7
+numpy>=1.26
+scipy>=1.11
+scikit-learn>=1.5
+SQLAlchemy>=2.0,<3.0
+networkx>=3.2
+torch>=2.2
+transformers>=4.45,<6
+sentence-transformers>=3.0
+sentencepiece>=0.2
+pypdf>=5.0
+python-docx>=1.1
+rouge-score>=0.1.2
