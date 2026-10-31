@@ -378,3 +378,5 @@ The first use of a model downloads its weights from Hugging Face. CPU inference 
 For CUDA-enabled PyTorch in
 has context menu
 
+<img width="959" height="437" alt="Screenshot 2026-10-31 085516" src="https://github.com/user-attachments/assets/2babfa2a-ab1e-4988-bf29-59828cdd7bb4" />
+<img width="905" height="438" alt="Screenshot 2026-10-31 090838" src="https://github.com/user-attachments/assets/2e402ea7-274e-46b3-8e10-79349382860e" />
