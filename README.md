@@ -370,12 +370,13 @@ TextMorph/
     └── metadata.sqlite
 ```
  
+ 
 ---
  
 ## 🧠 Models & Technologies
  
 <details>
-<summary>🤖 Pretrained models</summary>
+<summary>🤖 Pretrained Models</summary>
  
 | Task | Model |
 |:---|:---|
@@ -383,33 +384,62 @@ TextMorph/
 | Summarization | `t5-small` |
 | Paraphrasing | `Vamsi/T5_Paraphrase_Paws` |
 | Semantic Similarity | `sentence-transformers/all-MiniLM-L6-v2` |
-| Den
-has context menu
+| Dense Retrieval | `sentence-transformers/multi-qa-mpnet-base-dot-v1` |
+| Reranking | `cross-encoder/ms-marco-MiniLM-L6-v2` |
+| NLI Analysis | `cross-encoder/nli-deberta-base` |
+| Optional Answer Generation | `qwen2.5:3b` via Ollama |
+| Optional Answer Generation | `google/flan-t5-base` |
+ 
+Models are loaded lazily to reduce unnecessary memory consumption.
+ 
+</details>
+ 
+<details>
+<summary>🛠️ Technology Stack</summary>
+ 
+| Category | Technologies |
+|:---|:---|
+| Language | Python |
+| Interface | Gradio |
+| Deep Learning | PyTorch |
+| NLP | Hugging Face Transformers |
+| Embeddings | Sentence-Transformers |
+| Similarity | scikit-learn, NumPy |
+| Keyword Retrieval | BM25 |
+| Vector Search | NumPy cosine-similarity adapter |
+| Reranking | Cross-Encoder |
+| NLI | DeBERTa |
+| Knowledge Graph | spaCy, NetworkX, PyVis |
+| Database | SQLite, SQLAlchemy |
+| Document Processing | pypdf, python-docx |
+| Evaluation | ROUGE, custom retrieval metrics |
+| Visualization | Matplotlib |
+ 
+</details>
+ 
 ---
-
----
-
+ 
 ## 👀 Take a Look Inside TextMorph
  
 <div align="center">
  
 ### Your workspace, reimagined.
  
-Explore the interface of TextMorph, where NLP tools and document intelligence come together.
+Explore the interface where NLP tools and document intelligence come together.
  
 <br>
  
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="https://github.com/user-attachments/assets/2babfa2a-ab1e-4988-bf29-59828cdd7bb4" width="100%" alt="TextMorph main interface"/>
+      <img src="https://github.com/user-attachments/assets/2babfa2a-ab1e-4988-bf29-59828cdd7bb4" width="100%" alt="TextMorph NLP Studio"/>
       <br><br>
       <strong>✨ The NLP Studio</strong>
       <br>
       <sub>Summarization, paraphrasing and semantic analysis.</sub>
     </td>
     <td align="center" width="50%">
-      <img src="https://github.com/user-attachments/assets/6a0109a7-41b1-4e04-853e-e5a73ee4e6df" width="100%" alt="TextMorph document intelligence interface"/>
+      <img src="https://github.com/user-attachments/assets/6a0109a7-41b1-4e04-853e-e5a73ee4e6df" width="100%" alt="TextMorph Document Intelligence"/>
       <br><br>
       <strong>🧠 Document Intelligence</strong>
       <br>
@@ -423,5 +453,6 @@ Explore the interface of TextMorph, where NLP tools and document intelligence co
 *Less scrolling through documents. More understanding what's inside them.*
  
 </div>
-has context menu
-
+ 
+---
+ 
